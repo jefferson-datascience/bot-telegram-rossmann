@@ -1,4 +1,5 @@
+numpy
 pandas
-jsonschema
-requests
+inflection
 Flask
+requests
