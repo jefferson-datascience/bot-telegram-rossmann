@@ -1,5 +1,5 @@
-Flask
-json
 pandas
+json
 requests
+Flask
 os
