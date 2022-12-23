@@ -1,0 +1,5 @@
+Flask
+json
+pandas
+requests
+os
