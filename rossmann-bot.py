@@ -18,7 +18,7 @@ token = '5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0'
 #https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/setWebhook?url=https://bot-rossmann-prediction.herokuapp.com
 
 # Webhook Render
-#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/setWebhook?url=https://rossmann-predict-webapp.onrender.com/
+#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/setWebhook?url=https://rossmann-predict-webapp.onrender.com
 
 # Send Messages
 #https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/sendMessage?chat_id=938254555&text=Fala Neguim!
@@ -83,9 +83,11 @@ def predict(data):
           
 def parse_message(message):
     
-    chat_id  = message['results'][0]['message']['chat']['id']
-    store_id = message['results'][0]['message']['text']
-          
+    #chat_id  = message['results'][0]['message']['chat']['id']
+    #store_id = message['results'][0]['message']['text']
+    chat_id  = message['message']['chat']['id']
+    store_id = message['message']['text'] 
+        
     store_id = store_id.replace('/', '')
           
     try:
