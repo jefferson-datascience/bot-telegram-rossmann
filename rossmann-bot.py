@@ -6,19 +6,22 @@ import requests
 from flask import Flask, request, Response
 
 # constants
-token = '5659695846:AAHtDPrh2Dkz76m1mA1PyCJn0Sviaxs7O5E'
+token = '5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0'
 
 # Indo about the bot
-#https://api.telegram.org/bot5659695846:AAHtDPrh2Dkz76m1mA1PyCJn0Sviaxs7O5E/getMe
+#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/getMe
         
 # Get Updates
-#https://api.telegram.org/bot5659695846:AAHtDPrh2Dkz76m1mA1PyCJn0Sviaxs7O5E/getUpdates
+#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/getUpdates
 
-# Webhook
-#https://api.telegram.org/bot5659695846:AAHtDPrh2Dkz76m1mA1PyCJn0Sviaxs7O5E/setWebhook?url=https://bot-rossmann-prediction.herokuapp.com
+# Webhook Heroku
+#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/setWebhook?url=https://bot-rossmann-prediction.herokuapp.com
+
+# Webhook Render
+#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/setWebhook?url=https://rossmann-predict-webapp.onrender.com/
 
 # Send Messages
-#https://api.telegram.org/bot5659695846:AAHtDPrh2Dkz76m1mA1PyCJn0Sviaxs7O5E/sendMessage?chat_id=938254555&text=Fala Neguim!
+#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/sendMessage?chat_id=938254555&text=Fala Neguim!
 
 
 def send_message(chat_id, text):
@@ -80,8 +83,8 @@ def predict(data):
           
 def parse_message(message):
     
-    chat_id = message['message']['chat']['id']
-    store_id = message['message']['text']
+    chat_id  = message['results'][0]['message']['chat']['id']
+    store_id = message['results'][0]['message']['text']
           
     store_id = store_id.replace('/', '')
           
@@ -106,8 +109,8 @@ def index():
 
         if store_id != 'error':
             
-            aviso = 'Processando a predição das próximas 6 semanas de vendas da loja {}.'.format(store_id)
-            send_message(chat_id, aviso)    
+            #aviso = 'Processando a predição das próximas 6 semanas de vendas da loja {}.'.format(store_id)
+            #send_message(chat_id, aviso)    
             
             #loading data
             data = load_dataset(store_id)
@@ -121,12 +124,12 @@ def index():
                 d2 = d1[['store', 'prediction']].groupby('store').sum().reset_index()    
 
                 #send message
-                msg = 'A loja {} vai vender nas próximas 6 semanas R$ {:,.2f}'.format(d2['store'].values[0], d2['prediction'].values[0])
+                msg = 'A loja {} vai vender nas próximas 6 semanas R$ {:.2f}'.format(d2['store'].values[0], d2['prediction'].values[0])
                 send_message(chat_id, msg)
                 return Response('Ok', status='200')
 
             else:
-                aviso_2 = 'Não há dados disponíveis sobre a loja {} para a previsão de vendas das próximas 6 semanas.'.format(store_id)
+                aviso_2 = 'Não há dados disponíveis sobre a loja {}.'.format(store_id)
                 send_message(chat_id, aviso_2)
                 return Response('Ok', status='200')
             
