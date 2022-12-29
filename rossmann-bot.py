@@ -20,13 +20,8 @@ token = '5911098115:AAGVmRWgMpwm7paxpFMh9piehquWRUO7jB8'
 # delete WebHook
 #https://api.telegram.org/bot5911098115:AAGVmRWgMpwm7paxpFMh9piehquWRUO7jB8/deleteWebhook
 
-# Webhook Heroku
-#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/setWebhook?url=https://bot-rossmann-prediction.herokuapp.com
-
 # Webhook Render
 #https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/setWebhook?url=https://rossmann-predict-webapp.onrender.com
-
-
 
 
 def send_message(chat_id, text):
@@ -144,7 +139,7 @@ def index():
 if __name__=='__main__':
     
     port = os.environ.get('PORT', '5000')
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=port)
 
 
     
