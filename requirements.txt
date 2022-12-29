@@ -1,5 +1,5 @@
-Flask
+Flask==2.2.2
 jsonschema
-requests
-numpy
-pandas
+requests==2.22.0
+numpy==1.17.3
+pandas==0.25.3

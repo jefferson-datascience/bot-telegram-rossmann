@@ -100,7 +100,7 @@ def parse_message(message):
 
 
 # API Inicializado          
-app = Flask(__name__)
+app = Flask( __name__ )
           
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -131,8 +131,7 @@ def index():
                 return Response('Ok', status='200')
 
             else:
-                aviso_2 = 'Não há dados disponíveis sobre a loja {}.'.format(store_id)
-                send_message(chat_id, aviso_2)
+                send_message(chat_id, 'Não há dados disponíveis sobre a loja')
                 return Response('Ok', status='200')
             
         else:
