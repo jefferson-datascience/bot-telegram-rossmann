@@ -1,6 +1,5 @@
+Flask
+jsonschema
+requests
 numpy
 pandas
-inflection
-flask
-requests
-jsonschema
