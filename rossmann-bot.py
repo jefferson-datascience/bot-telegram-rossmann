@@ -6,13 +6,19 @@ import requests
 from flask import Flask, request, Response
 
 # constants
-token = '5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0'
+token = '5911098115:AAGVmRWgMpwm7paxpFMh9piehquWRUO7jB8'
 
-# Indo about the bot
-#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/getMe
+# Informações sobre o BOT
+#https://api.telegram.org/bot5911098115:AAGVmRWgMpwm7paxpFMh9piehquWRUO7jB8/getMe
         
 # Get Updates
-#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/getUpdates
+#https://api.telegram.org/bot5911098115:AAGVmRWgMpwm7paxpFMh9piehquWRUO7jB8/getUpdates
+
+# Send Messages
+#https://api.telegram.org/bot5911098115:AAGVmRWgMpwm7paxpFMh9piehquWRUO7jB8/sendMessage?chat_id=938254555&text=Hello Jefferson!
+
+# delete WebHook
+#https://api.telegram.org/bot5911098115:AAGVmRWgMpwm7paxpFMh9piehquWRUO7jB8/deleteWebhook
 
 # Webhook Heroku
 #https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/setWebhook?url=https://bot-rossmann-prediction.herokuapp.com
@@ -20,8 +26,7 @@ token = '5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0'
 # Webhook Render
 #https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/setWebhook?url=https://rossmann-predict-webapp.onrender.com
 
-# Send Messages
-#https://api.telegram.org/bot5776089231:AAEtppZ7l8oIgxBUySrZOpFrIuU3XVR43D0/sendMessage?chat_id=938254555&text=Fala Neguim!
+
 
 
 def send_message(chat_id, text):
@@ -30,8 +35,7 @@ def send_message(chat_id, text):
     url = 'https://api.telegram.org/bot{}/'.format(token)
     url = url + 'sendMessage?chat_id={}'.format(chat_id)
     
-    r = requests.post(url, json={'text':text})
-    
+    r = requests.post(url, json={'text':text}) 
     print('Status Code: {}'.format(r.status_code))
           
     return None
@@ -83,8 +87,6 @@ def predict(data):
           
 def parse_message(message):
     
-    #chat_id  = message['results'][0]['message']['chat']['id']
-    #store_id = message['results'][0]['message']['text']
     chat_id  = message['message']['chat']['id']
     store_id = message['message']['text'] 
         
@@ -109,10 +111,7 @@ def index():
 
         chat_id, store_id = parse_message(message)
 
-        if store_id != 'error':
-            
-            #aviso = 'Processando a predição das próximas 6 semanas de vendas da loja {}.'.format(store_id)
-            #send_message(chat_id, aviso)    
+        if store_id != 'error':   
             
             #loading data
             data = load_dataset(store_id)
@@ -145,7 +144,7 @@ def index():
 if __name__=='__main__':
     
     port = os.environ.get('PORT', '5000')
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=5000)
 
 
     
